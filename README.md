@@ -93,12 +93,21 @@ The **ProDev Backend Engineering Program** is an intensive, project-based learni
 - Documented learning journey so far in my README.md file
 
 ### Week 13: Capstone Project - Online Poll System
-- Bootstrapped a Django project for an online poll system.
-- Set up project structure and version control (.gitignore, `.env`).
+#### ✅ Day 1–2: Setup & Models
+- Bootstrapped a Django project for the online poll system.
+- Set up project structure and version control (`.gitignore`, `.env`).
 - Created database models: `User`, `Poll`, `Question`, `Choice`, and `Vote`.
 - Registered models with the Django admin site.
 - Applied initial migrations and verified model relationships.
 - Secured secrets using `django-environ` and environment variables.
+
+#### ✅ Day 3: Poll Management API
+- Created DRF views for `Poll`, `Question`, and `Choice` models.
+- Implemented endpoints for poll creation, listing, and detail view.
+- Added functionality to create questions for polls and choices for questions.
+- Ensured expired polls cannot be created (expiry validation).
+- Responses include nested questions and choices for better client consumption.
+- Tested all endpoints with Postman using token-based authentication.
 
 ---
 
