@@ -109,6 +109,12 @@ The **ProDev Backend Engineering Program** is an intensive, project-based learni
 - Responses include nested questions and choices for better client consumption.
 - Tested all endpoints with Postman using token-based authentication.
 
+#### ✅ Day 4: Voting Logic and Tests
+- Added voting functionality to allow users to vote on poll choices.
+- Implemented validation to prevent duplicate votes from the same IP or session.
+- Integrated the voting route into the API.
+- Wrote unit tests to cover vote submissions, duplicate prevention, and expired polls.
+- Confirmed all tests pass with `python manage.py test`.
 ---
 
 ## 🧩 Challenges Faced & Solutions Implemented

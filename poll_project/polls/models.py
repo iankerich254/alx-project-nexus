@@ -47,9 +47,19 @@ class Choice(models.Model):
 
 class Vote(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='votes')  # FK to User
-    choice = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name='votes')  # FK to Choice
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='votes', null=True, blank=True)
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name='votes')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='votes', null=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    session_key = models.CharField(max_length=40, null=True, blank=True)
     voted_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = [
+            ('user', 'question'),
+            ('ip_address', 'question'),
+            ('session_key', 'question'),
+        ]
+
     def __str__(self):
-        return f"{self.user.username} voted {self.choice.text}"
+        return f"{self.user.username if self.user else 'Anonymous'} voted {self.choice.text}"
