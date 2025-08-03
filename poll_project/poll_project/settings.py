@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'polls',
     'rest_framework.authtoken',
+    'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

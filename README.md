@@ -124,6 +124,13 @@ The **ProDev Backend Engineering Program** is an intensive, project-based learni
     2. Sort and filter questions based on total vote counts.
     3. Download poll results as CSV with total votes and percentage breakdowns.
 - Ensured proper formatting and UX on the Admin interface for managing results.
+
+#### ✅ Day 6: Swagger API Documentation
+
+- Installed and configured `drf-yasg` for interactive API documentation.
+- Enabled public access to Swagger UI at `/api/docs/` without login.
+- Annotated API views and viewsets with detailed descriptions and example payloads using `@swagger_auto_schema`.
+- Documented all input/output fields and expected responses.
 ---
 
 ## 🧩 Challenges Faced & Solutions Implemented
