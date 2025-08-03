@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.utils import timezone
+from django.db.models import Count
 
 from .models import Poll, Question, Choice, Vote
 from .serializers import PollSerializer, QuestionSerializer, ChoiceSerializer, VoteSerializer
@@ -60,3 +61,32 @@ class VoteAPIView(APIView):
         request.session[session_key] = True  # Set session flag
 
         return Response({"message": "Vote submitted successfully."}, status=status.HTTP_201_CREATED)
+
+class PollResultsAPIView(APIView):
+    def get(self, request, pk):
+        try:
+            poll = Poll.objects.prefetch_related('questions__choices__votes').get(pk=pk)
+        except Poll.DoesNotExist:
+            return Response({"detail": "Poll not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        results = []
+        for question in poll.questions.all():
+            choices = question.choices.annotate(vote_count=Count('votes')).order_by('-vote_count')
+            winner = choices.first()
+
+            results.append({
+                "question": question.text,
+                "choices": [
+                    {"choice": c.text, "votes": c.vote_count}
+                    for c in choices
+                ],
+                "winner": {
+                    "choice": winner.text,
+                    "votes": winner.vote_count
+                } if winner else None
+            })
+
+        return Response({
+            "poll": poll.title,
+            "results": results
+        })

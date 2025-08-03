@@ -115,6 +115,15 @@ The **ProDev Backend Engineering Program** is an intensive, project-based learni
 - Integrated the voting route into the API.
 - Wrote unit tests to cover vote submissions, duplicate prevention, and expired polls.
 - Confirmed all tests pass with `python manage.py test`.
+
+#### ✅ Day 5: Results & Admin Enhancements
+- Built real-time poll result aggregation using Django ORM annotations.
+- Enhanced the Django Admin with vote statistics per poll and question.
+- Admins can now:
+    1. View total votes per poll and per question.
+    2. Sort and filter questions based on total vote counts.
+    3. Download poll results as CSV with total votes and percentage breakdowns.
+- Ensured proper formatting and UX on the Admin interface for managing results.
 ---
 
 ## 🧩 Challenges Faced & Solutions Implemented
