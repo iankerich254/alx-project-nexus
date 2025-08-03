@@ -131,6 +131,8 @@ The **ProDev Backend Engineering Program** is an intensive, project-based learni
 - Enabled public access to Swagger UI at `/api/docs/` without login.
 - Annotated API views and viewsets with detailed descriptions and example payloads using `@swagger_auto_schema`.
 - Documented all input/output fields and expected responses.
+Link to api/docs/
+    http://127.0.0.1:8000/api/docs/
 ---
 
 ## 🧩 Challenges Faced & Solutions Implemented
