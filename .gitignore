@@ -33,4 +33,4 @@ ehthumbs.db
 # Celery Beat
 celerybeat-schedule
 
-.coverage
+*.coverage
