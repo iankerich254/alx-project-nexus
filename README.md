@@ -133,6 +133,29 @@ The **ProDev Backend Engineering Program** is an intensive, project-based learni
 - Documented all input/output fields and expected responses.
 Link to api/docs/
     http://127.0.0.1:8000/api/docs/
+
+#### ✅ Day 7: Unit Testing & Code Cleanup
+
+- Added unit tests for:
+  - Poll creation with expiry validation (`test_poll.py`)
+  - Voting logic:
+    - Prevented multiple votes from the same IP or session (`test_vote.py`)
+  - Poll result computation:
+    - Aggregated vote counts and determined winners (`test_results.py`)
+- Modularized test files under `polls/tests/` directory.
+- Deleted old `polls/tests.py` file (legacy).
+- Cleaned up the codebase:
+  - Removed unused imports.
+  - Added and updated docstrings in:
+    - `views.py`
+    - `serializers.py`
+    - `models.py`
+- Ensured test coverage using `coverage`:
+  ```bash
+  coverage run manage.py test
+  coverage report
+
+  I achieved a coverage of 78%.
 ---
 
 ## 🧩 Challenges Faced & Solutions Implemented

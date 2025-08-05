@@ -3,6 +3,10 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    """
+    Custom User model extending Django's AbstractUser.
+    Enforces unique email and username.
+    """
     id = models.AutoField(primary_key=True)  # Explicit PK
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
@@ -16,6 +20,10 @@ class User(AbstractUser):
 
 
 class Poll(models.Model):
+    """
+    Poll model representing a survey or voting topic.
+    Related to the user who created it and has an expiry date.
+    """
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -28,6 +36,10 @@ class Poll(models.Model):
 
 
 class Question(models.Model):
+    """
+    Question model representing a question under a specific poll.
+    Each poll can have multiple questions.
+    """
     id = models.AutoField(primary_key=True)
     text = models.CharField(max_length=255)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='questions')  # FK to Poll
@@ -37,6 +49,10 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
+    """
+    Choice model representing answer options for a question.
+    Each question can have multiple choices.
+    """
     id = models.AutoField(primary_key=True)
     text = models.CharField(max_length=255)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')  # FK to Question
@@ -46,6 +62,10 @@ class Choice(models.Model):
 
 
 class Vote(models.Model):
+    """
+    Vote model for storing individual user or anonymous votes.
+    Tracks by user, IP address, and session to prevent duplicate votes.
+    """
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='votes', null=True, blank=True)
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name='votes')

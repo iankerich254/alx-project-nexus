@@ -1,4 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+"""
+views.py
+
+Contains API views for Polls, Questions, Choices, Voting, and Poll Results.
+Implements both ViewSets and APIViews with Swagger documentation.
+"""
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, generics, status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.exceptions import ValidationError
@@ -13,6 +19,11 @@ from .models import Poll, Question, Choice, Vote
 from .serializers import PollSerializer, QuestionSerializer, ChoiceSerializer, VoteSerializer
 
 class PollViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing Polls.
+    Supports listing, retrieving, creating, updating, and deleting polls.
+    Enforces that expiry date must be in the future upon creation.
+    """
     queryset = Poll.objects.all()
     serializer_class = PollSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -64,6 +75,10 @@ class PollViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 class QuestionViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing Questions under polls.
+    Supports standard CRUD operations.
+    """
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -89,6 +104,10 @@ class QuestionViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
 class ChoiceViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing Choices under Questions.
+    Supports standard CRUD operations.
+    """
     queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -114,6 +133,11 @@ class ChoiceViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
 class VoteAPIView(APIView):
+    """
+    API view to submit a vote for a given question.
+    Prevents multiple votes from the same session or IP.
+    Accepts the ID of a choice in the request body.
+    """
     @swagger_auto_schema(
         operation_summary="Submit a vote for a specific question",
         operation_description="Allows an anonymous or authenticated user to vote for a choice in a poll question. Prevents duplicate votes from the same session or IP.",
@@ -163,6 +187,10 @@ class VoteAPIView(APIView):
         return Response({"message": "Vote submitted successfully."}, status=status.HTTP_201_CREATED)
 
 class PollResultsAPIView(APIView):
+    """
+    API view to compute and return poll results.
+    Aggregates votes per choice and determines the winner per question.
+    """
     @swagger_auto_schema(
         operation_summary="Get poll results with winners",
         operation_description="Returns vote counts and winners for each question in a poll.",

@@ -150,3 +150,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+# Custom test runner to discover tests in the polls app
+TEST_RUNNER = 'polls.test_runner.CustomTestRunner'
