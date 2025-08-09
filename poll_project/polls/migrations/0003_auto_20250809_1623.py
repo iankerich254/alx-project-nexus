@@ -2,9 +2,10 @@
 
 from django.db import migrations
 
+
 def create_superuser(apps, schema_editor):
-    from django.contrib.auth.models import User
-    from django.conf import settings
+    # Use the actual app label and model name of your custom user model
+    User = apps.get_model('polls', 'User')
 
     if not User.objects.filter(username='admin').exists():
         User.objects.create_superuser(
@@ -12,6 +13,8 @@ def create_superuser(apps, schema_editor):
             email='admin@example.com',
             password='adminpass'
         )
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
