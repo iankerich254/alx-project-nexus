@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies first for better caching
-COPY requirements.txt .
+COPY poll_project/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project files
