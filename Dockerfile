@@ -2,21 +2,28 @@
 FROM python:3.11-slim
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Set workdir
+# Set work directory
 WORKDIR /app
 
-# Copy requirements and install
-COPY poll_project/requirements.txt /app/
-RUN pip install --upgrade pip && pip install -r requirements.txt
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the Django project into the container
-COPY poll_project /app/
+# Install Python dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port 8000
-EXPOSE 8000
+# Copy project files
+COPY . /app/
 
-# Run migrations and start server
-CMD python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+# Copy entrypoint script
+COPY entrypoint.sh /app/
+RUN chmod +x /app/entrypoint.sh
+
+# Run entrypoint script
+CMD ["/app/entrypoint.sh"]
