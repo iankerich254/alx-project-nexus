@@ -18,5 +18,5 @@ COPY poll_project /app/
 # Expose port 8000
 EXPOSE 8000
 
-# Default command to run the Django dev server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Run migrations and start server
+CMD python manage.py migrate && python manage.py runserver 0.0.0.0:8000
