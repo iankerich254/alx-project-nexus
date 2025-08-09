@@ -1,4 +1,4 @@
-# Use official Python image
+# Use official Python image as base
 FROM python:3.11-slim
 
 # Set environment variables
@@ -9,21 +9,21 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-COPY poll_project/requirements.txt .
+# Copy requirements first for caching
+COPY poll_project/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the project folder into the container
-COPY poll_project/ /app/
-
-# Copy entrypoint script into container root
-COPY entrypoint.sh /app/
+# Copy entrypoint script to the root of workdir
+COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
-# Use entrypoint script
+# Copy project files
+COPY . .
+
+# Run entrypoint
 ENTRYPOINT ["/app/entrypoint.sh"]
