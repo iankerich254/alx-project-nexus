@@ -153,3 +153,7 @@ REST_FRAMEWORK = {
 
 # Custom test runner to discover tests in the polls app
 TEST_RUNNER = 'polls.test_runner.CustomTestRunner'
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://alx-project-nexus-online-poll-kerich.onrender.com"
+]
