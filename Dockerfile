@@ -1,4 +1,4 @@
-# Use official Python image as base
+# Use official Python image
 FROM python:3.11-slim
 
 # Set environment variables
@@ -8,25 +8,22 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Set work directory
 WORKDIR /app
 
-# Install system dependencies (needed for psycopg2 and others)
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy only requirements first for caching
-COPY poll_project/requirements.txt /app/requirements.txt
+# Install Python dependencies
+COPY poll_project/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project files into container
-COPY . /app/
+# Copy the project folder into the container
+COPY poll_project/ /app/
 
-# Copy entrypoint script to /app, ensure permissions
-COPY entrypoint.sh /app/entrypoint.sh
+# Copy entrypoint script into container root
+COPY entrypoint.sh /app/
 RUN chmod +x /app/entrypoint.sh
 
-# Expose port (optional, useful for local testing)
-EXPOSE 8000
-
-# Set entrypoint script
+# Use entrypoint script
 ENTRYPOINT ["/app/entrypoint.sh"]
