@@ -4,15 +4,15 @@ Welcome to **Project Nexus**, a documentation hub that captures my learning jour
 
 ---
 
-## 🚀 Program Overview
+##  Program Overview
 
 The **ProDev Backend Engineering Program** is an intensive, project-based learning track aimed at equipping learners with modern backend development skills. Over 12 weeks, I explored foundational to advanced backend technologies, practiced industry-standard workflows, and built real-world backend services.
 
 ---
 
-## 🧠 Major Learnings
+##  Major Learnings
 
-### 🔧 Key Technologies Covered
+###  Key Technologies Covered
 
 - **Python**: Core language used throughout, including advanced features like decorators, context managers, and asynchronous programming.
 - **Django**: Main framework for building RESTful APIs, handling database interactions, middlewares, signals, and advanced ORM.
@@ -27,7 +27,7 @@ The **ProDev Backend Engineering Program** is an intensive, project-based learni
 
 ---
 
-### 🧱 Backend Concepts Mastered
+###  Backend Concepts Mastered
 
 - **Database Design & Modeling**: Created normalized schemas, ERDs, seeders, and optimized SQL queries.
 - **Asynchronous Programming**: Utilized `asyncio`, asynchronous views, and task queues (Celery).
@@ -44,7 +44,7 @@ The **ProDev Backend Engineering Program** is an intensive, project-based learni
 
 ---
 
-## 🔄 Weekly Breakdown
+##  Weekly Breakdown
 
 ### Week 0: Getting Started
 - Created a Vision Board and learning roadmap for the journey.
@@ -156,23 +156,53 @@ Link to api/docs/
   coverage report
 
   I achieved a coverage of 78%.
+
+#### ✅ Day 8: Dockerization + Deployment
+
+- Created `Dockerfile` for Django app and `docker-compose.yml` to run PostgreSQL and Django in containers.
+- Configured environment variables for secrets using `.env` files and `django-environ`.
+- Deployed the application on **Render**.
+  - The projected is hosted at https://alx-project-nexus-online-poll-kerich.onrender.com
+- Verified:
+  - API endpoints are accessible online.
+  - `/api/docs/` (Swagger UI) is publicly available.
+
+#### ✅ Day 9: Demo Video + Google Slides Presentation
+
+- Designed a Google Slides presentation covering:
+  - Project Overview
+  - Key Features
+- Recorded a 4 minute demo video showcasing:
+  - Project overview
+  - Swagger documentation navigation
+
+#### ✅ Day 10: Final Deployment & Production Readiness
+
+- Set up entrypoint.sh script for Django migrations and static file collection before app startup.
+- Finalized the documentation (README.md file) and filled the form for project nexus review.
+
+## Deployment Instructions
+
+1. Clone the repository
+  git clone https://github.com/iankerich254/alx-project-nexus
+  cd alx-project-nexus
+
+2. Build and Run with docker
+  docker-compose up --build
+
 ---
 
-## 🧩 Challenges Faced & Solutions Implemented
+##  Challenges Faced & Solutions Implemented
 
 | Challenge | Solution |
 |----------|----------|
 | Setting up environment variables across Docker and Django | Used `django-environ` and `.env` files to manage secrets |
-| Handling slow API responses | Implemented Redis caching and optimized querysets |
-| Managing background tasks | Integrated Celery and Celery Beat with RabbitMQ |
 | Coordinating Docker and PostgreSQL on local machine | Created Docker Compose setup for all services |
-| CI/CD failures during builds | Debugged Dockerfile, added test stage to Jenkins pipeline |
-| Load balancer not distributing traffic evenly | Reviewed HAProxy config and health checks |
-| Monitoring setup complexity | Used Datadog agents and simplified logging strategies |
+| CI/CD failures during builds | Debugged Dockerfile |
 
 ---
 
-## 💡 Best Practices & Takeaways
+##  Best Practices & Takeaways
 
 - **Test Early, Test Often**: Testing isn't an afterthought; start with `pytest` from the beginning.
 - **Write Reusable Code**: Use Python decorators and DRF ViewSets for clean, DRY code.
