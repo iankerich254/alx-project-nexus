@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -160,3 +161,5 @@ TEST_RUNNER = 'polls.test_runner.CustomTestRunner'
 CSRF_TRUSTED_ORIGINS = [
     "https://alx-project-nexus-online-poll-kerich.onrender.com"
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
